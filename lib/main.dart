@@ -63,6 +63,14 @@ class _MyAppState extends State<MyApp> {
     },
   ];
 
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+
   void _answerQuestion(int score) {
     if(_questionIndex < _questions.length) {
       setState(() => _questionIndex++);
@@ -85,7 +93,7 @@ class _MyAppState extends State<MyApp> {
           children: [
             Quiz(answerQuestion: _answerQuestion, questions: _questions, questionIndex: _questionIndex),
           ],
-        ) : Result(_totalScore),
+        ) : Result(_totalScore, _resetQuiz),
       ),
     );
 
