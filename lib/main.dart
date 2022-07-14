@@ -14,27 +14,62 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _questionIndex = 0;
+  int _totalScore = 0;
 
   final _questions = const [
     {
       'questionText': 'What\'s your favorite color ?',
-      'answers': ['red', 'black', 'white', 'yellow'],
+      'answers': [
+        {'text': 'red', 'score': 0},
+        {'text': 'black', 'score': 1},
+        {'text': 'white', 'score': 2},
+        {'text': 'yellow', 'score': 3},
+      ]
     },
     {
       'questionText': 'What\'s your favorite animal ?',
-      'answers': ['cat', 'dog', 'fish'],
+      'answers': [
+        {'text': 'cat', 'score': 0},
+        {'text': 'dog', 'score': 1},
+        {'text': 'fish', 'score': 2},
+      ]
     },
     {
       'questionText': 'What\'s your favorite food ?',
-      'answers': ['pizza', 'pizza', 'pizza', 'pizza'],
+      'answers': [
+        {'text': 'pizza', 'score': 1},
+        {'text': 'pizza', 'score': 2},
+        {'text': 'pizza', 'score': 3},
+        {'text': 'pizza', 'score': 4},
+      ]
+    },
+    {
+      'questionText': 'What\'s your favorite car ?',
+      'answers': [
+        {'text': 'black', 'score': 1},
+        {'text': 'white', 'score': 2},
+        {'text': 'green', 'score': 3},
+        {'text': 'red (+1 HP)', 'score': 4},
+      ]
+    },
+    {
+      'questionText': 'What\'s your favorite time ?',
+      'answers': [
+        {'text': 'morning', 'score': 1},
+        {'text': 'day', 'score': 2},
+        {'text': 'evening', 'score': 3},
+        {'text': 'night', 'score': 4},
+      ]
     },
   ];
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
     if(_questionIndex < _questions.length) {
       setState(() => _questionIndex++);
     }
+    _totalScore += score;
     print('answer chosen index: ${_questionIndex}');
+    print('total score is ${_totalScore}');
   }
 
   @override
@@ -50,7 +85,7 @@ class _MyAppState extends State<MyApp> {
           children: [
             Quiz(answerQuestion: _answerQuestion, questions: _questions, questionIndex: _questionIndex),
           ],
-        ) : Result(),
+        ) : Result(_totalScore),
       ),
     );
 
